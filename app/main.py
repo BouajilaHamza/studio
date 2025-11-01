@@ -5,6 +5,18 @@ from fastapi.responses import HTMLResponse
 from app.database import init_db
 from app.routers import auth, teacher, student, sessions
 from contextlib import asynccontextmanager
+from fastapi.middleware.gzip import GZipMiddleware
+from starlette.middleware.base import BaseHTTPMiddleware
+
+
+class NoCacheMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request, call_next):
+        response = await call_next(request)
+        if request.url.path.startswith("/static/"):
+            response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+            response.headers["Pragma"] = "no-cache"
+            response.headers["Expires"] = "0"
+        return response
 
 
 @asynccontextmanager
@@ -14,6 +26,8 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="Language Learning Platform", lifespan=lifespan)
+
+app.add_middleware(NoCacheMiddleware)
 
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 

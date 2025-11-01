@@ -40,6 +40,16 @@ The FastAPI server runs automatically on port 5000. A demo teacher account is cr
 - Email: teacher@demo.com
 - Password: any password (demo mode)
 
+### Development
+
+To rebuild Tailwind CSS after making template changes:
+```bash
+cd app/static/css
+npx tailwindcss -i input.css -o output.css
+```
+
+Increment the version number in `base.html` CSS link to bust cache: `?v=3`
+
 ## Project Structure
 
 ```
