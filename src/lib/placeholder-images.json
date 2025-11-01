@@ -1,3 +1,34 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "avatar1",
+      "description": "Smiling child avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1552873816-636e43209957?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjaGlsZCUyMHNtaWxpbmd8ZW58MHx8fHwxNzYxOTEzNDgxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "child smiling"
+    },
+    {
+      "id": "avatar2",
+      "description": "Child with glasses avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1631406630775-f320509291ef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Y2hpbGQlMjBnbGFzc2VzfGVufDB8fHx8MTc2MjAwMTUwNXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "child glasses"
+    },
+    {
+      "id": "avatar3",
+      "description": "Child laughing avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1614655652730-7ad98f6d8d0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjaGlsZCUyMGxhdWdoaW5nfGVufDB8fHx8MTc2MTkwMzU5M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "child laughing"
+    },
+    {
+      "id": "avatar4",
+      "description": "Child with hat avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1611519918817-865d2bafab3d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjaGlsZCUyMGhhdHxlbnwwfHx8fDE3NjIwMDE1MDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "child hat"
+    },
+    {
+      "id": "avatar5",
+      "description": "Thoughtful child avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1759423672042-4391ac0a240c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxjaGlsZCUyMHRoaW5raW5nfGVufDB8fHx8MTc2MjAwMTUwNXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "child thinking"
+    }
+  ]
 }
