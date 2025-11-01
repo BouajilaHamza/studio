@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Play, Square, Clipboard, Check, X } from 'lucide-react';
+import { Play, Square, Clipboard, Check } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 export function SessionControl() {
@@ -22,37 +22,31 @@ export function SessionControl() {
     setPin('');
   };
 
-  const copyPin = async () => {
-    try {
-      if (navigator.clipboard && window.isSecureContext) {
-        await navigator.clipboard.writeText(pin);
-      } else {
-        // Fallback for insecure contexts
-        const textArea = document.createElement("textarea");
-        textArea.value = pin;
-        textArea.style.position = "absolute";
-        textArea.style.left = "-9999px";
-        document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand("copy");
-        document.body.removeChild(textArea);
-      }
-      
+  const copyPin = () => {
+    if (!navigator.clipboard) {
+      toast({
+        variant: 'destructive',
+        title: 'Copy Failed',
+        description: 'Clipboard API is not available in your browser.',
+      });
+      return;
+    }
+
+    navigator.clipboard.writeText(pin).then(() => {
       setCopied(true);
       toast({
-        title: "Copied!",
-        description: "The session PIN has been copied to your clipboard.",
+        title: 'Copied!',
+        description: 'The session PIN has been copied to your clipboard.',
       });
       setTimeout(() => setCopied(false), 2000);
-
-    } catch (err) {
-      console.error("Failed to copy PIN: ", err);
+    }).catch(err => {
+      console.error('Failed to copy PIN: ', err);
       toast({
-        variant: "destructive",
-        title: "Copy Failed",
-        description: "Could not copy the PIN. Please try again.",
+        variant: 'destructive',
+        title: 'Copy Failed',
+        description: 'Could not copy the PIN. Please try again.',
       });
-    }
+    });
   };
 
   return (
