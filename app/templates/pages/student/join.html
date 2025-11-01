@@ -1,0 +1,35 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+<div class="flex min-h-screen items-center justify-center bg-background p-4">
+    <div class="text-center max-w-md w-full">
+        <div class="inline-block bg-primary/10 p-4 rounded-full mb-6">
+            <i data-lucide="sparkles" class="w-12 h-12 text-primary"></i>
+        </div>
+        <h1 class="text-4xl font-bold font-headline mb-4 text-foreground">
+            Join a Session
+        </h1>
+        <p class="text-lg text-muted-foreground mb-8">
+            Enter your name and the session PIN from your teacher.
+        </p>
+        
+        <div class="bg-card rounded-lg border border-border shadow-lg p-6">
+            <form method="POST" action="/session/join" class="space-y-4">
+                <div class="space-y-2">
+                    <label for="name" class="text-sm font-medium">Your Name</label>
+                    <input type="text" id="name" name="name" required placeholder="Enter your name"
+                        class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm" />
+                </div>
+                <div class="space-y-2">
+                    <label for="pin" class="text-sm font-medium">Session PIN</label>
+                    <input type="text" id="pin" name="pin" required placeholder="Enter 6-digit PIN" maxlength="6" pattern="[0-9]{6}"
+                        class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm" />
+                </div>
+                <button type="submit" class="w-full bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 rounded-md">
+                    Join Session
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

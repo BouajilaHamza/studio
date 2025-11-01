@@ -1,0 +1,53 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+<div class="flex min-h-screen items-center justify-center bg-background p-4">
+    <div class="w-full max-w-sm shadow-2xl rounded-lg border border-border bg-card text-card-foreground">
+        <div class="flex flex-col space-y-1.5 p-6 text-center">
+            <div class="mx-auto mb-4">
+                <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center">
+                    <span class="text-3xl text-primary-foreground">✨</span>
+                </div>
+            </div>
+            <h3 class="text-2xl font-headline font-semibold leading-none tracking-tight">Teacher Sign Up</h3>
+            <p class="text-sm text-muted-foreground">Create your teacher account to get started.</p>
+        </div>
+        
+        <form method="POST" action="/auth/signup">
+            <div class="p-6 pt-0 space-y-4">
+                {% if error %}
+                <div class="bg-destructive/10 border border-destructive text-destructive px-4 py-3 rounded-md text-sm">
+                    {{ error }}
+                </div>
+                {% endif %}
+                
+                <div class="space-y-2">
+                    <label for="full_name" class="text-sm font-medium leading-none">Full Name</label>
+                    <input id="full_name" name="full_name" type="text" placeholder="John Doe" required
+                        class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50" />
+                </div>
+                <div class="space-y-2">
+                    <label for="email" class="text-sm font-medium leading-none">Email</label>
+                    <input id="email" name="email" type="email" placeholder="teacher@example.com" required
+                        class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50" />
+                </div>
+                <div class="space-y-2">
+                    <label for="password" class="text-sm font-medium leading-none">Password</label>
+                    <input id="password" name="password" type="password" required
+                        class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50" />
+                </div>
+            </div>
+            <div class="flex items-center p-6 pt-0">
+                <button type="submit"
+                    class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors bg-primary text-primary-foreground hover:bg-primary/90 h-10 py-2 px-4 w-full">
+                    Sign Up
+                </button>
+            </div>
+        </form>
+        
+        <div class="p-6 pt-0 text-center text-sm text-muted-foreground">
+            Already have an account? <a href="/auth/login" class="text-primary hover:underline">Login</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

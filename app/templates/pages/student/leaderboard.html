@@ -1,0 +1,56 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+<div class="min-h-screen bg-background">
+    <header class="bg-card border-b border-border">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-headline font-bold">{{ session.title }} - Leaderboard</h1>
+                <a href="/session/{{ session.pin }}?student_id={{ request.args.get('student_id', students[0].id if students else 1) }}" 
+                   class="text-primary hover:underline flex items-center">
+                    <i data-lucide="arrow-left" class="w-4 h-4 mr-1"></i>
+                    Back to Session
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container mx-auto px-4 py-8">
+        <div class="max-w-2xl mx-auto">
+            <div class="rounded-lg border border-border bg-card p-6">
+                <div class="flex items-center space-x-2 mb-6">
+                    <i data-lucide="trophy" class="w-8 h-8 text-primary"></i>
+                    <h2 class="text-2xl font-headline font-bold">Top Students</h2>
+                </div>
+                
+                <div class="space-y-3">
+                    {% for student in students %}
+                    <div class="flex items-center justify-between p-4 rounded-md {% if loop.index <= 3 %}bg-primary/5 border-2 border-primary{% else %}bg-muted{% endif %}">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 rounded-full flex items-center justify-center {% if loop.index == 1 %}bg-yellow-400 text-yellow-900{% elif loop.index == 2 %}bg-gray-300 text-gray-900{% elif loop.index == 3 %}bg-amber-600 text-amber-50{% else %}bg-muted-foreground text-background{% endif %} font-bold">
+                                {{ loop.index }}
+                            </div>
+                            <div>
+                                <p class="font-semibold">{{ student.name }}</p>
+                                <p class="text-sm text-muted-foreground">Joined {{ student.joined_at.strftime('%H:%M') }}</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-2xl font-bold text-primary">{{ student.score }}</p>
+                            <p class="text-xs text-muted-foreground">points</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                    {% if not students %}
+                    <div class="text-center py-12">
+                        <i data-lucide="users" class="w-12 h-12 mx-auto text-muted-foreground mb-4"></i>
+                        <p class="text-muted-foreground">No students have joined yet</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}
