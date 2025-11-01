@@ -1,8 +1,9 @@
-from fastapi import APIRouter, Request, Form, Depends, HTTPException
+from fastapi import APIRouter, Request, Depends, Form
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from app.database import get_supabase
 from supabase import Client
+from app.schemas.auth import LoginForm, SignupForm
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 templates = Jinja2Templates(directory="app/templates")
@@ -16,8 +17,7 @@ async def login_page(request: Request):
 @router.post("/login")
 async def login(
     request: Request,
-    email: str = Form(...),
-    password: str = Form(...)
+    form_data: LoginForm = Depends(LoginForm)
 ):
     redirect = RedirectResponse(url="/teacher/dashboard", status_code=303)
     redirect.set_cookie(key="access_token", value="demo_token", httponly=True)
@@ -32,9 +32,7 @@ async def signup_page(request: Request):
 @router.post("/signup")
 async def signup(
     request: Request,
-    email: str = Form(...),
-    password: str = Form(...),
-    full_name: str = Form(...)
+    form_data: SignupForm = Depends(SignupForm)
 ):
     return RedirectResponse(url="/auth/login", status_code=303)
 

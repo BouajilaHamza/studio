@@ -6,7 +6,7 @@
         <div class="container mx-auto px-4 py-4">
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-headline font-bold">{{ session.title }} - Leaderboard</h1>
-                <a href="/session/{{ session.pin }}?student_id={{ request.args.get('student_id', students[0].id if students else 1) }}" 
+                <a href="/session/{{ session.pin }}?student_id={{ request.query_params.get('student_id', students[0].id if students else 1) }}"
                    class="text-primary hover:underline flex items-center">
                     <i data-lucide="arrow-left" class="w-4 h-4 mr-1"></i>
                     Back to Session
@@ -14,7 +14,7 @@
             </div>
         </div>
     </header>
-    
+
     <main class="container mx-auto px-4 py-8">
         <div class="max-w-2xl mx-auto">
             <div class="rounded-lg border border-border bg-card p-6">
@@ -22,7 +22,7 @@
                     <i data-lucide="trophy" class="w-8 h-8 text-primary"></i>
                     <h2 class="text-2xl font-headline font-bold">Top Students</h2>
                 </div>
-                
+
                 <div class="space-y-3">
                     {% for student in students %}
                     <div class="flex items-center justify-between p-4 rounded-md {% if loop.index <= 3 %}bg-primary/5 border-2 border-primary{% else %}bg-muted{% endif %}">
@@ -41,7 +41,7 @@
                         </div>
                     </div>
                     {% endfor %}
-                    
+
                     {% if not students %}
                     <div class="text-center py-12">
                         <i data-lucide="users" class="w-12 h-12 mx-auto text-muted-foreground mb-4"></i>

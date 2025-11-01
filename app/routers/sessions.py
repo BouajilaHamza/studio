@@ -1,15 +1,24 @@
-from fastapi import APIRouter, Request, Form, Depends
+from fastapi import APIRouter, Request, Depends
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
-from sqlmodel import Session, select
+from sqlmodel import Session
 from app.database import get_session
 from app.models import Session as SessionModel, Phrase
+from app.schemas.sessions import SessionCreate
 import random
 import string
 
 router = APIRouter(prefix="/sessions", tags=["sessions"])
 templates = Jinja2Templates(directory="app/templates")
 
+def get_sample_phrases():
+    return [
+        "Hola, ¿cómo estás?",
+        "Buenos días",
+        "Gracias",
+        "Por favor",
+        "¿Dónde está el baño?"
+    ]
 
 def generate_pin(length=6):
     return ''.join(random.choices(string.digits, k=length))
@@ -17,33 +26,26 @@ def generate_pin(length=6):
 
 @router.post("/create")
 async def create_session(
-    title: str = Form(...),
-    description: str = Form(None),
+    form_data: SessionCreate = Depends(SessionCreate),
     db: Session = Depends(get_session)
 ):
     pin = generate_pin()
     
-    while db.exec(select(SessionModel).where(SessionModel.pin == pin)).first():
+    while db.query(SessionModel).filter(SessionModel.pin == pin).first():
         pin = generate_pin()
     
     session = SessionModel(
         pin=pin,
-        title=title,
-        description=description,
-        teacher_id=1
+        title=form_data.title,
+        description=form_data.description,
+        teacher_id=1  # TODO: Replace with authenticated teacher ID
     )
     
     db.add(session)
     db.commit()
     db.refresh(session)
     
-    sample_phrases = [
-        "Hola, ¿cómo estás?",
-        "Buenos días",
-        "Gracias",
-        "Por favor",
-        "¿Dónde está el baño?"
-    ]
+    sample_phrases = get_sample_phrases()
     
     for idx, phrase_text in enumerate(sample_phrases):
         phrase = Phrase(
